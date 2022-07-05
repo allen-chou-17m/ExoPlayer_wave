@@ -35,7 +35,7 @@ import java.lang.annotation.RetentionPolicy;
 public final class FlvExtractor implements Extractor {
 
   /** Factory for {@link FlvExtractor} instances. */
-  public static final ExtractorsFactory FACTORY = () -> new Extractor[] {new FlvExtractor()};
+  public static final ExtractorsFactory FACTORY = () -> new Extractor[] {new FlvExtractor(true)};
 
   /** Extractor states. */
   @Documented
@@ -82,14 +82,16 @@ public final class FlvExtractor implements Extractor {
   private boolean outputSeekMap;
   private AudioTagPayloadReader audioReader;
   private VideoTagPayloadReader videoReader;
+  private boolean videoTrackEnable;
 
-  public FlvExtractor() {
+  public FlvExtractor(boolean videoTrackEnable) {
     scratch = new ParsableByteArray(4);
     headerBuffer = new ParsableByteArray(FLV_HEADER_SIZE);
     tagHeaderBuffer = new ParsableByteArray(FLV_TAG_HEADER_SIZE);
     tagData = new ParsableByteArray();
     metadataReader = new ScriptTagPayloadReader();
     state = STATE_READING_FLV_HEADER;
+    this.videoTrackEnable = videoTrackEnable;
   }
 
   @Override
@@ -193,7 +195,7 @@ public final class FlvExtractor implements Extractor {
       audioReader = new AudioTagPayloadReader(
           extractorOutput.track(TAG_TYPE_AUDIO, C.TRACK_TYPE_AUDIO));
     }
-    if (hasVideo && videoReader == null) {
+    if (videoTrackEnable && hasVideo && videoReader == null) {
       videoReader = new VideoTagPayloadReader(
           extractorOutput.track(TAG_TYPE_VIDEO, C.TRACK_TYPE_VIDEO));
     }

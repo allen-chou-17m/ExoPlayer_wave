@@ -91,6 +91,7 @@ public final class DefaultExtractorsFactory implements ExtractorsFactory {
   }
 
   private boolean constantBitrateSeekingEnabled;
+  private boolean flvVideoTrackEnabled;
   private @AdtsExtractor.Flags int adtsFlags;
   private @AmrExtractor.Flags int amrFlags;
   private @MatroskaExtractor.Flags int matroskaFlags;
@@ -118,6 +119,11 @@ public final class DefaultExtractorsFactory implements ExtractorsFactory {
   public synchronized DefaultExtractorsFactory setConstantBitrateSeekingEnabled(
       boolean constantBitrateSeekingEnabled) {
     this.constantBitrateSeekingEnabled = constantBitrateSeekingEnabled;
+    return this;
+  }
+
+  public synchronized DefaultExtractorsFactory setFlvVideoTrackEnable(boolean enable) {
+    this.flvVideoTrackEnabled = enable;
     return this;
   }
 
@@ -242,7 +248,7 @@ public final class DefaultExtractorsFactory implements ExtractorsFactory {
                     : 0));
     extractors[5] = new Ac3Extractor();
     extractors[6] = new TsExtractor(tsMode, tsFlags);
-    extractors[7] = new FlvExtractor();
+    extractors[7] = new FlvExtractor(flvVideoTrackEnabled);
     extractors[8] = new OggExtractor();
     extractors[9] = new PsExtractor();
     extractors[10] = new WavExtractor();
