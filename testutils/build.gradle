@@ -13,6 +13,12 @@
 // limitations under the License.
 apply from: "$gradle.ext.exoplayerSettingsDir/common_library_config.gradle"
 
+android {
+    defaultConfig {
+        multiDexEnabled true
+    }
+}
+
 dependencies {
     api 'org.mockito:mockito-core:' + mockitoVersion
     api 'androidx.test:core:' + androidxTestCoreVersion
@@ -25,6 +31,7 @@ dependencies {
     compileOnly 'org.jetbrains.kotlin:kotlin-annotations-jvm:' + kotlinAnnotationsVersion
     implementation 'androidx.annotation:annotation:' + androidxAnnotationVersion
     implementation 'com.squareup.okhttp3:mockwebserver:' + okhttpVersion
+    implementation 'androidx.multidex:multidex:' + androidxMultidexVersion
     implementation project(modulePrefix + 'library-core')
     testImplementation 'org.robolectric:robolectric:' + robolectricVersion
 }
