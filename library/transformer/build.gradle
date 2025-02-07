@@ -13,7 +13,8 @@
 // limitations under the License.
 apply from: "$gradle.ext.exoplayerSettingsDir/common_library_config.gradle"
 android {
-
+    namespace 'com.google.android.exoplayer2.transformer'
+    testNamespace 'com.google.android.exoplayer2.transformer.test'
     defaultConfig {
         minSdkVersion 21
         // The following argument makes the Android Test Orchestrator run its

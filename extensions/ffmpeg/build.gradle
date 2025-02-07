@@ -21,6 +21,11 @@ if (project.file('src/main/jni/ffmpeg').exists()) {
     android.externalNativeBuild.cmake.version = '3.21.0+'
 }
 
+android {
+    namespace 'com.google.android.exoplayer2.ext.ffmpeg'
+    testNamespace 'com.google.android.exoplayer2.ext.ffmpeg.test'
+}
+
 dependencies {
     implementation project(modulePrefix + 'library-decoder')
     // TODO(b/203752526): Remove this dependency.

@@ -16,6 +16,8 @@ apply from: "$gradle.ext.exoplayerSettingsDir/common_library_config.gradle"
 android.buildTypes.debug.testCoverageEnabled true
 
 android {
+    namespace 'com.google.android.exoplayer2.ui'
+    testNamespace 'com.google.android.exoplayer2.ui.test'
     lint {
         baseline = file("lint-baseline.xml")
     }
